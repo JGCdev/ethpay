@@ -1,0 +1,13 @@
+.container{
+    width: 80%;
+    margin: 50px auto;
+    background: #ebfaf8;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    .container-wrapper{
+        padding:20px;
+        h2{
+            margin:0;
+        }
+    }
+}
