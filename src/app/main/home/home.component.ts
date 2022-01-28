@@ -18,6 +18,7 @@ export class HomeComponent {
         this.metamaskInstalled = true;
       }
       this.w3s.accountConnected.subscribe( (res) => {
+        console.log('RES: ', res);
         res.connected ? this.connected = true : this.connected = false;
         this.cdr.detectChanges();
       });
@@ -27,7 +28,7 @@ export class HomeComponent {
           this.collectionName = res.name;
         }
       });
-      localStorage.getItem('eth') ? this.connected = true : this.connected = false;
+      localStorage.getItem('ethPT') ? this.connected = true : this.connected = false;
   }
 
   pay() {

@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkConnected() {
-    const eth = localStorage.getItem('eth');
+    const eth = localStorage.getItem('ethPT');
     if (eth) {
       // console.log('Emit', eth);
       const user = {account: eth, connected: true };

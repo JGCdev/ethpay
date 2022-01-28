@@ -43,7 +43,7 @@ export class Web3Service {
     if (accountsRequest[0]) {
       this.user = {account: accountsRequest[0], connected: true };
       this.accountConnected.emit(this.user);
-      localStorage.setItem('eth', accountsRequest[0]);
+      localStorage.setItem('ethPT', accountsRequest[0]);
       this.toastr.success('Your are now connected!');
       return true
     }
@@ -52,10 +52,10 @@ export class Web3Service {
   }
 
   logout(): void {
-    localStorage.removeItem('eth');
+    localStorage.removeItem('ethPT');
     this.user = {account: null, connected: false };
     this.accountConnected.emit(this.user);
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     this.toastr.info('You have disconnected!');
   }
 
@@ -92,7 +92,10 @@ export class Web3Service {
         }, 3000);
       })
       .catch((error: any) => {
-        this.toastr.error(error);
+        if (error.code !== 4001) {
+          this.logout();
+        }
+        this.toastr.error(error.message);
       });
   }
 
