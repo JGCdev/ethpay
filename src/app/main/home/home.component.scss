@@ -1,13 +1,48 @@
 .container{
-    width: 80%;
+
+  width: 400px;
     margin: 50px auto;
     background: #ebfaf8;
     border-radius: 15px;
     border: 2px solid rgba(0, 0, 0, 0.12);
     .container-wrapper{
         padding:20px;
-        h2{
+        text-align:center;
+        h2, h4{
             margin:0;
         }
+        h2{
+            margin-bottom:20px;
+        }
+        .form-field{
+            display: flex;
+            flex-direction: column;
+            margin-bottom:20px;
+        }
+
+        .mint-home:hover{
+            background: var(--baseColorHover);
+            min-width:310px;
+            padding: 17px 30px;
+            font-size: 19px;
+            transition: 0.3s ease-in;
+          }
+
+          .mint-home{
+              cursor:pointer;
+            border: none;
+            background: var(--baseColor);
+            color: white;
+            font-size: 18px;
+            font-family: "Cuprum", sans-serif;
+            padding: 16px 30px;
+            font-weight: bold;
+            min-width: 300px;
+            border-radius: 7.5px;
+            transition: 0.3s ease-out;
+            a{
+              color:white;
+            }
+          }
     }
 }

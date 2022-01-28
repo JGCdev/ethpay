@@ -6,9 +6,10 @@ import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':name',
     component: HomeComponent
   },
+ 
   {
     path: 'terms',
     component: TermsComponent

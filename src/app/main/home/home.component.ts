@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
@@ -8,29 +9,35 @@ import { Web3Service } from 'src/app/shared/services/web3.service';
 })
 export class HomeComponent {
   connected: boolean = false;
-  faqOpen: number = 0;
-  mintable: number = 0;
   metamaskInstalled = false;
-  constructor(private w3s: Web3Service, private cdr: ChangeDetectorRef) { 
+  collectionName: any = 'Unnamed';
+  selectedOption: string = '0.05';
+
+  constructor(private w3s: Web3Service, private cdr: ChangeDetectorRef, private route: ActivatedRoute) { 
       if (this.w3s.isMetamaskInstalled()) {
         this.metamaskInstalled = true;
-        this.getTotalSupply();
       }
       this.w3s.accountConnected.subscribe( (res) => {
         res.connected ? this.connected = true : this.connected = false;
         this.cdr.detectChanges();
       });
-
+      this.route.paramMap.subscribe( paramMap => {
+          this.collectionName = paramMap.get('name');
+          console.log( paramMap);
+      })
       localStorage.getItem('eth') ? this.connected = true : this.connected = false;
   }
 
-  getTotalSupply() {
-    this.w3s.getAvailableNFT()
-    .then( (res: number) => {
-      this.mintable = Number(res);
-      this.cdr.detectChanges();
-    }, (err)=>{
-      console.log('Error', err);
-    });
+  pay() {
+    console.log('Pagar X: ', this.selectedOption);
+    
+  }
+  
+  connect() {
+    this.w3s.connect();
+  }
+
+  metamask() {
+    
   }
 }

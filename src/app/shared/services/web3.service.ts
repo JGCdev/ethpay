@@ -23,7 +23,7 @@ export class Web3Service {
       console.log('MetaMask is installed!');
       this.provider = new ethers.providers.Web3Provider(window.ethereum)
       this.signer = this.provider.getSigner()
-      this.web3 = new Web3(environment.RINKEBY_URL);
+      // this.web3 = new Web3(environment.RINKEBY_URL);
       window.ethereum.on('accountsChanged', function (accounts: any) {
         if (accounts[0] === undefined || accounts.length == 0) {
           that.logout();
@@ -59,24 +59,24 @@ export class Web3Service {
     return false;
   }
 
-  getAvailableNFT(): Promise<number> {
-    let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
-    // console.log('Contract: ', MyContract);
-    return MyContract.methods.totalSupply().call();
-  }
+  // getAvailableNFT(): Promise<number> {
+  //   let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
+  //   // console.log('Contract: ', MyContract);
+  //   return MyContract.methods.totalSupply().call();
+  // }
 
-  async mint(selected: number): Promise<any> {
-    let contract = new ethers.Contract(environment.RINKEBY_CONTRACT, abiContract, this.signer)
-    const transaction = await contract["mint"](selected, {value: String(environment.MINTING_VALUE * selected)});
-    // console.log('Trans 1: ', transaction);
-    await transaction.wait();
-    return transaction;
-  }
+  // async mint(selected: number): Promise<any> {
+  //   let contract = new ethers.Contract(environment.RINKEBY_CONTRACT, abiContract, this.signer)
+  //   const transaction = await contract["mint"](selected, {value: String(environment.MINTING_VALUE * selected)});
+  //   // console.log('Trans 1: ', transaction);
+  //   await transaction.wait();
+  //   return transaction;
+  // }
 
-  getConnectedAccountNFTs() {
-    let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
-    return MyContract.methods.checkWallet(this.user.account).call();
-  }
+  // getConnectedAccountNFTs() {
+  //   let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
+  //   return MyContract.methods.checkWallet(this.user.account).call();
+  // }
 
   logout(): void {
     localStorage.removeItem('eth');
@@ -86,11 +86,16 @@ export class Web3Service {
     this.toastr.info('You have disconnected!');
   }
 
-  async verifyOwnerGeneric( id: string) {
-    const signature = await window.ethereum.request({ method: 'personal_sign', params: [ "Proving I Have a MoonZilla", this.user.account ] });
-    // const signature = await this.web3.eth.sign("Hello world", this.user.account);
-    // const signature = await this.web3.eth.personal.sign("Hello world", this.user.account)
-    window.location.href = `${environment.BACK_URL}/verifyRole?&mes=${signature}&user=${id}`;
-  };
+  // async verifyOwnerGeneric( id: string) {
+  //   const signature = await window.ethereum.request({ method: 'personal_sign', params: [ "Proving I Have a MoonZilla", this.user.account ] });
+  //   // const signature = await this.web3.eth.sign("Hello world", this.user.account);
+  //   // const signature = await this.web3.eth.personal.sign("Hello world", this.user.account)
+  //   window.location.href = `${environment.BACK_URL}/verifyRole?&mes=${signature}&user=${id}`;
+  // };
+
+  pay() {
+    window.ethereum.sendTransaction({from:this.user.account,to:'0x3b24193e425aebA2531D594E69eBCE32cE9D8ab9',value:Web3.toWei(100,'finney'),data:Web3.toHex('John Doe sent you a message')})
+    // eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(1‌​00,'finney'),data:web3.toHex('John Doe sent you a message')})
+  }
 
 }

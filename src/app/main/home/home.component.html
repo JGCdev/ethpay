@@ -1,6 +1,29 @@
 <div class="container">
     <div class="container-wrapper">
-        <h2>Make your payment</h2>
-        <p>Example</p>
+        <h2>Premium package payment</h2>
+        <div class="package">
+            <div class="name">
+                <div class="form-field">
+                    <label>Collection name:</label>
+                    <h4 *ngIf="collectionName">{{collectionName}}</h4>
+                </div>
+                <div class="form-field">
+                    <label>Period:</label>
+                    <select [(ngModel)]="selectedOption">
+                        <option value="0.05">1 week - 0.05 ETH</option>
+                        <option value="0.1">2 week - 0.1 ETH</option>
+                        <option value="0.13">3 week - 0.13 ETH</option>
+                        <option value="0.15">4 week - 0.15 ETH</option>
+                    </select>
+                </div>
+
+                <div class="button-anim-container">
+                    <button *ngIf="connected" class="mint-home" (click)="pay()">Pay</button>
+                    <button *ngIf="!connected && metamaskInstalled" class="mint-home" (click)="connect()">CONNECT METAMASK TO PAY</button>
+                    <button *ngIf="!metamaskInstalled" class="mint-home" (click)="metamask()"><a href="https://metamask.io" target="_blank">INSTALL METAMASK TO PAY</a></button>
+                </div>
+            </div>
+           
+        </div>
     </div>
 </div>
