@@ -1,8 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-// import { abiContract } from './abiRopsten'; 
-import { abiContract } from './abiProd'; 
 import { ethers } from "ethers";
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 declare var Web3: any;
@@ -25,12 +22,7 @@ export class Web3Service {
       this.signer = this.provider.getSigner()
       // this.web3 = new Web3(environment.RINKEBY_URL);
       window.ethereum.on('accountsChanged', function (accounts: any) {
-        if (accounts[0] === undefined || accounts.length == 0) {
           that.logout();
-        } else {
-          that.user = {account: accounts[0], connected: true };
-          that.accountConnected.emit(that.user);
-        }
       })
       
       window.ethereum.on('networkChanged', function () {
@@ -59,25 +51,6 @@ export class Web3Service {
     return false;
   }
 
-  // getAvailableNFT(): Promise<number> {
-  //   let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
-  //   // console.log('Contract: ', MyContract);
-  //   return MyContract.methods.totalSupply().call();
-  // }
-
-  // async mint(selected: number): Promise<any> {
-  //   let contract = new ethers.Contract(environment.RINKEBY_CONTRACT, abiContract, this.signer)
-  //   const transaction = await contract["mint"](selected, {value: String(environment.MINTING_VALUE * selected)});
-  //   // console.log('Trans 1: ', transaction);
-  //   await transaction.wait();
-  //   return transaction;
-  // }
-
-  // getConnectedAccountNFTs() {
-  //   let MyContract = new this.web3.eth.Contract(abiContract, environment.RINKEBY_CONTRACT);
-  //   return MyContract.methods.checkWallet(this.user.account).call();
-  // }
-
   logout(): void {
     localStorage.removeItem('eth');
     this.user = {account: null, connected: false };
@@ -86,23 +59,24 @@ export class Web3Service {
     this.toastr.info('You have disconnected!');
   }
 
-  // async verifyOwnerGeneric( id: string) {
-  //   const signature = await window.ethereum.request({ method: 'personal_sign', params: [ "Proving I Have a MoonZilla", this.user.account ] });
-  //   // const signature = await this.web3.eth.sign("Hello world", this.user.account);
-  //   // const signature = await this.web3.eth.personal.sign("Hello world", this.user.account)
-  //   window.location.href = `${environment.BACK_URL}/verifyRole?&mes=${signature}&user=${id}`;
-  // };
+  toHex(str: string) {
+    var result = '';
+    for (var i=0; i<str.length; i++) {
+      result += str.charCodeAt(i).toString(16);
+    }
+    return result;
+  }
 
-  pay(amount: string) {
+  pay(amount: string, name: string) {
     let params = [
       {
         from: this.user.account,
-        to: '0x3b24193e425aebA2531D594E69eBCE32cE9D8ab9',
+        to: '0x78e08B4ED81C7E2AF78EEd96e8b53745ebf967fd',
         gas: '30400', // 30400
         // gasPrice: '0x9184e72a000', // 10000000000000
         value: Web3.utils.toHex(Web3.utils.toWei(amount, 'ether')), // 2441406250
         data:
-          '0x',
+          '0x' + this.toHex(name),
       }
     ];
 
@@ -112,10 +86,13 @@ export class Web3Service {
         params,
       })
       .then((result: any) => {
-        console.log('Transaction result:' , result);
+        this.toastr.success('Payment processed correctly. Your event will be listed soon.');
+        setTimeout(() => {
+          location.href="https://nftpromotion.tools"
+        }, 3000);
       })
       .catch((error: any) => {
-        console.log('Trans error: ', error);
+        this.toastr.error(error);
       });
   }
 

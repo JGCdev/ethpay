@@ -8,11 +8,23 @@
     .container-wrapper{
         padding:20px;
         text-align:center;
+        hr{
+          width:83%;
+          margin-bottom:25px;
+          margin-top:0px;
+          color:#00bfa0;
+        }
+        select{
+          width: 83%;
+          margin: 0 auto;
+          height: 34px;
+          margin-top: 5px;
+        }
         h2, h4{
             margin:0;
         }
         h2{
-            margin-bottom:20px;
+            margin-bottom:10px;
         }
         .form-field{
             display: flex;
@@ -44,5 +56,21 @@
               color:white;
             }
           }
+          .help{
+            font-size: 12px;
+            width: 82%;
+            margin: 0 auto;
+            margin-top: 0px;
+            margin-top: 10px;
+          }
     }
+}
+
+.socials{
+  text-align: center;
+font-size: 13px;
+a{
+  text-decoration: none;
+  color:#333;
+}
 }

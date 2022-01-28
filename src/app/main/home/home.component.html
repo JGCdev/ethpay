@@ -1,6 +1,7 @@
 <div class="container">
     <div class="container-wrapper">
         <h2>Premium package payment</h2>
+        <hr>
         <div class="package">
             <div class="name">
                 <div class="form-field">
@@ -22,8 +23,22 @@
                     <button *ngIf="!connected && metamaskInstalled" class="mint-home" (click)="connect()">CONNECT METAMASK TO PAY</button>
                     <button *ngIf="!metamaskInstalled" class="mint-home" (click)="metamask()"><a href="https://metamask.io" target="_blank">INSTALL METAMASK TO PAY</a></button>
                 </div>
+
+                <div class="help">
+                    *Contact us <a href="mailto:support@nftpromotion.tools">at the following email</a> or on social networks if you have any problem during payment.
+                </div>
             </div>
+
+           
            
         </div>
+
+
     </div>
+
+    
+</div>
+
+<div class="socials">
+    <a href="https://nftpromotion.tools/legal-advice" target="_blank">Legal Advice</a> - <a href="https://nftpromotion.tools/privacy-policy" target="_blank">Privacy Policy</a>
 </div>

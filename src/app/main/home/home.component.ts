@@ -22,15 +22,16 @@ export class HomeComponent {
         this.cdr.detectChanges();
       });
       this.route.paramMap.subscribe( paramMap => {
-          this.collectionName = paramMap.get('name');
-          console.log( paramMap);
+          if (paramMap.get('name')) {
+            this.collectionName = paramMap.get('name');
+          }
+        
       })
       localStorage.getItem('eth') ? this.connected = true : this.connected = false;
   }
 
   pay() {
-    console.log('Pagar X: ', this.selectedOption);
-    this.w3s.pay(this.selectedOption);
+    this.w3s.pay(this.selectedOption, this.collectionName);
   }
   
   connect() {
