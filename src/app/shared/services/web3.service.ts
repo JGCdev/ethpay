@@ -93,9 +93,30 @@ export class Web3Service {
   //   window.location.href = `${environment.BACK_URL}/verifyRole?&mes=${signature}&user=${id}`;
   // };
 
-  pay() {
-    window.ethereum.sendTransaction({from:this.user.account,to:'0x3b24193e425aebA2531D594E69eBCE32cE9D8ab9',value:Web3.toWei(100,'finney'),data:Web3.toHex('John Doe sent you a message')})
-    // eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(1‌​00,'finney'),data:web3.toHex('John Doe sent you a message')})
+  pay(amount: string) {
+    let params = [
+      {
+        from: this.user.account,
+        to: '0x3b24193e425aebA2531D594E69eBCE32cE9D8ab9',
+        gas: '30400', // 30400
+        // gasPrice: '0x9184e72a000', // 10000000000000
+        value: Web3.utils.toHex(Web3.utils.toWei(amount, 'ether')), // 2441406250
+        data:
+          '0x',
+      }
+    ];
+
+    window.ethereum
+      .request({
+        method: 'eth_sendTransaction',
+        params,
+      })
+      .then((result: any) => {
+        console.log('Transaction result:' , result);
+      })
+      .catch((error: any) => {
+        console.log('Trans error: ', error);
+      });
   }
 
 }

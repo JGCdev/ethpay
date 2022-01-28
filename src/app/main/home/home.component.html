@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="button-anim-container">
-                    <button *ngIf="connected" class="mint-home" (click)="pay()">Pay</button>
+                    <button *ngIf="connected" class="mint-home" (click)="pay()">Pay {{selectedOption}} ETH</button>
                     <button *ngIf="!connected && metamaskInstalled" class="mint-home" (click)="connect()">CONNECT METAMASK TO PAY</button>
                     <button *ngIf="!metamaskInstalled" class="mint-home" (click)="metamask()"><a href="https://metamask.io" target="_blank">INSTALL METAMASK TO PAY</a></button>
                 </div>

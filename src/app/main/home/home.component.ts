@@ -30,7 +30,7 @@ export class HomeComponent {
 
   pay() {
     console.log('Pagar X: ', this.selectedOption);
-    
+    this.w3s.pay(this.selectedOption);
   }
   
   connect() {
