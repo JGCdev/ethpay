@@ -21,12 +21,12 @@ export class HomeComponent {
         res.connected ? this.connected = true : this.connected = false;
         this.cdr.detectChanges();
       });
-      this.route.paramMap.subscribe( paramMap => {
-          if (paramMap.get('name')) {
-            this.collectionName = paramMap.get('name');
-          }
-        
-      })
+      // http://localhost:4200/?name=dsdfsd
+      this.route.queryParams.subscribe( (res: any) => {
+        if ( res?.name) {
+          this.collectionName = res.name;
+        }
+      });
       localStorage.getItem('eth') ? this.connected = true : this.connected = false;
   }
 
